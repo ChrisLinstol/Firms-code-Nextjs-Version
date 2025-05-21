@@ -132,8 +132,8 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
 
   return (
     <Paper sx={{ p: { xs: 2, sm: 2.5 }, mt: 4, bgcolor: 'background.paper', width: '100%' }}>
-      <Grid container spacing={2} sx={{ mb: 2 }} alignItems="center">
-        <Grid item xs={12} md={8}>
+      <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', alignItems: 'center' }}>
+        <Grid sx={{ gridColumn: 'span 8' }}>
           <FormControl fullWidth>
             <InputLabel>Search Mode</InputLabel>
             <Select
@@ -146,7 +146,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid sx={{ gridColumn: 'span 4' }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -160,8 +160,8 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
       </Grid>
 
       {searchMode === 'general' ? (
-        <Grid container spacing={2} sx={{ mb: 2 }}>
-          <Grid item xs={12} md={12}>
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }}>
+          <Grid sx={{ gridColumn: 'span 12' }}>
             <TextField
               fullWidth
               placeholder="Enter search term (searches across all fields)"
@@ -172,8 +172,8 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
           </Grid>
         </Grid>
       ) : (
-        <Grid container spacing={2} sx={{ mb: 2 }}>
-          <Grid item xs={12} md={4}>
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="FIRMS Code"
@@ -183,7 +183,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="FIRMS Name"
@@ -193,7 +193,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <FormControl fullWidth>
               <InputLabel>Facility Type</InputLabel>
               <Select
@@ -216,7 +216,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="Street Address"
@@ -225,7 +225,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="City"
@@ -234,7 +234,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="State"
@@ -244,7 +244,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="Zip"
@@ -253,7 +253,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="Country"
@@ -262,7 +262,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
               onKeyPress={handleKeyPress}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
               label="Status"
