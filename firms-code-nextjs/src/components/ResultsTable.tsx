@@ -1,5 +1,8 @@
 'use client';
 
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+
 interface FirmCode {
   code: string;
   name: string;
@@ -42,55 +45,55 @@ export default function ResultsTable({ matches }: ResultsTableProps) {
   };
 
   return (
-    <div className="mt-4">
-      <div className="mb-2">
-        {matches.length > 0 && (
-          <div className="flex justify-between items-center">
-            <div className="text-gray-600">
-              Found {matches.length} match{matches.length === 1 ? '' : 'es'}.
-            </div>
-            <button
-              className="btn btn-success"
-              onClick={exportToCSV}
-            >
-              Export to CSV
-            </button>
-          </div>
-        )}
-      </div>
+    <Box sx={{ mt: 4 }}>
+      {matches.length > 0 && (
+        <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography color="text.secondary">
+            Found {matches.length} match{matches.length === 1 ? '' : 'es'}.
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<DownloadIcon />}
+            onClick={exportToCSV}
+          >
+            Export to CSV
+          </Button>
+        </Box>
+      )}
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full table-auto border-collapse">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border px-4 py-2">FIRMS Code</th>
-              <th className="border px-4 py-2">FIRMS Name</th>
-              <th className="border px-4 py-2">Facility Type</th>
-              <th className="border px-4 py-2">Street Address</th>
-              <th className="border px-4 py-2">City</th>
-              <th className="border px-4 py-2">State</th>
-              <th className="border px-4 py-2">Zip</th>
-              <th className="border px-4 py-2">Country</th>
-              <th className="border px-4 py-2">FIRMS Status</th>
-            </tr>
-          </thead>
-          <tbody>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>FIRMS Code</TableCell>
+              <TableCell>FIRMS Name</TableCell>
+              <TableCell>Facility Type</TableCell>
+              <TableCell>Street Address</TableCell>
+              <TableCell>City</TableCell>
+              <TableCell>State</TableCell>
+              <TableCell>Zip</TableCell>
+              <TableCell>Country</TableCell>
+              <TableCell>FIRMS Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {matches.map((item, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                <td className="border px-4 py-2">{item.code}</td>
-                <td className="border px-4 py-2">{item.name}</td>
-                <td className="border px-4 py-2">{item.type}</td>
-                <td className="border px-4 py-2">{item.address}</td>
-                <td className="border px-4 py-2">{item.city}</td>
-                <td className="border px-4 py-2">{item.state}</td>
-                <td className="border px-4 py-2">{item.zip}</td>
-                <td className="border px-4 py-2">{item.country}</td>
-                <td className="border px-4 py-2">{item.status}</td>
-              </tr>
+              <TableRow key={index} sx={{ '&:nth-of-type(odd)': { backgroundColor: 'action.hover' } }}>
+                <TableCell>{item.code}</TableCell>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.type}</TableCell>
+                <TableCell>{item.address}</TableCell>
+                <TableCell>{item.city}</TableCell>
+                <TableCell>{item.state}</TableCell>
+                <TableCell>{item.zip}</TableCell>
+                <TableCell>{item.country}</TableCell>
+                <TableCell>{item.status}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 } 
