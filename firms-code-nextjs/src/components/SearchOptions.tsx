@@ -1,6 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+  useTheme
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 interface FirmCode {
   code: string;
@@ -21,6 +36,7 @@ interface SearchOptionsProps {
 }
 
 export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchOptionsProps) {
+  const theme = useTheme();
   const [searchMode, setSearchMode] = useState<'general' | 'specific'>('general');
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [searchTerms, setSearchTerms] = useState({
@@ -108,190 +124,173 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
     setSearchTerms(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
-    <div className="bg-gray-50 p-4 rounded-lg mt-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <select
-          className="form-select"
-          value={searchMode}
-          onChange={(e) => setSearchMode(e.target.value as 'general' | 'specific')}
-        >
-          <option value="general">General Search (All Fields)</option>
-          <option value="specific">Search By Specific Fields</option>
-        </select>
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="caseSensitive"
-            className="form-checkbox mr-2"
-            checked={caseSensitive}
-            onChange={(e) => setCaseSensitive(e.target.checked)}
+    <Paper sx={{ p: { xs: 2, sm: 2.5 }, mt: 4, bgcolor: 'background.paper', width: '100%' }}>
+      <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', alignItems: 'center', gap: 2 }}>
+        <Grid sx={{ gridColumn: 'span 8' }}>
+          <FormControl fullWidth>
+            <InputLabel>Search Mode</InputLabel>
+            <Select
+              value={searchMode}
+              label="Search Mode"
+              onChange={(e) => setSearchMode(e.target.value as 'general' | 'specific')}
+            >
+              <MenuItem value="general">General Search (All Fields)</MenuItem>
+              <MenuItem value="specific">Search By Specific Fields</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid sx={{ gridColumn: 'span 4' }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={caseSensitive}
+                onChange={(e) => setCaseSensitive(e.target.checked)}
+              />
+            }
+            label="Case Sensitive"
           />
-          <label htmlFor="caseSensitive">Case Sensitive</label>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
       {searchMode === 'general' ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-2">
-            <input
-              type="text"
-              className="form-input w-full"
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 2 }}>
+          <Grid sx={{ gridColumn: 'span 12' }}>
+            <TextField
+              fullWidth
               placeholder="Enter search term (searches across all fields)"
               value={searchTerms.general}
               onChange={(e) => handleInputChange('general', e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              onKeyPress={handleKeyPress}
             />
-          </div>
-          <div className="flex gap-2">
-            <button
-              className="btn btn-primary flex-1"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
-            <button
-              className="btn btn-secondary flex-1"
-              onClick={handleClear}
-            >
-              Clear
-            </button>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       ) : (
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block font-bold mb-1">FIRMS Code:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                placeholder="C556"
-                value={searchTerms.firmCode}
-                onChange={(e) => handleInputChange('firmCode', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">FIRMS Name:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                placeholder="Michael Lewis"
-                value={searchTerms.firmName}
-                onChange={(e) => handleInputChange('firmName', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">Facility Type:</label>
-              <select
-                className="form-select w-full"
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 2 }}>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="FIRMS Code"
+              placeholder="C556"
+              value={searchTerms.firmCode}
+              onChange={(e) => handleInputChange('firmCode', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="FIRMS Name"
+              placeholder="Michael Lewis"
+              value={searchTerms.firmName}
+              onChange={(e) => handleInputChange('firmName', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <FormControl fullWidth>
+              <InputLabel>Facility Type</InputLabel>
+              <Select
                 value={searchTerms.facilityType}
+                label="Facility Type"
                 onChange={(e) => handleInputChange('facilityType', e.target.value)}
               >
-                <option value="">Select Type</option>
-                <option value="Bonded Warehouse">Bonded Warehouse</option>
-                <option value="Bridge">Bridge</option>
-                <option value="CES">CES</option>
-                <option value="Customs Administrative Site">Customs Administrative Site</option>
-                <option value="Customs Container Station">Customs Container Station</option>
-                <option value="Data Processing Site">Data Processing Site</option>
-                <option value="Foreign Trade Zone">Foreign Trade Zone</option>
-                <option value="Importer Premises">Importer Premises</option>
-                <option value="Inspection Facility">Inspection Facility</option>
-                <option value="Multi-Use-Bonded">Multi-Use-Bonded</option>
-                <option value="Pier">Pier</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block font-bold mb-1">Street Address:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                value={searchTerms.address}
-                onChange={(e) => handleInputChange('address', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">City:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                value={searchTerms.city}
-                onChange={(e) => handleInputChange('city', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">State:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                placeholder="CA"
-                value={searchTerms.state}
-                onChange={(e) => handleInputChange('state', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block font-bold mb-1">Zip:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                value={searchTerms.zip}
-                onChange={(e) => handleInputChange('zip', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">Country:</label>
-              <input
-                type="text"
-                className="form-input w-full"
-                value={searchTerms.country}
-                onChange={(e) => handleInputChange('country', e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-            </div>
-            <div>
-              <label className="block font-bold mb-1">FIRMS Status:</label>
-              <select
-                className="form-select w-full"
-                value={searchTerms.status}
-                onChange={(e) => handleInputChange('status', e.target.value)}
-              >
-                <option value="">Select Status</option>
-                <option value="ACTIVE">Active</option>
-                <option value="DEACTIVATED">Deactivated</option>
-                <option value="ACTIVATED">Activated</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              className="btn btn-primary flex-1"
-              onClick={handleSearch}
-            >
-              Search
-            </button>
-            <button
-              className="btn btn-secondary flex-1"
-              onClick={handleClear}
-            >
-              Clear
-            </button>
-          </div>
-        </div>
+                <MenuItem value="">Select Type</MenuItem>
+                <MenuItem value="Bonded Warehouse">Bonded Warehouse</MenuItem>
+                <MenuItem value="Bridge">Bridge</MenuItem>
+                <MenuItem value="CES">CES</MenuItem>
+                <MenuItem value="Customs Administrative Site">Customs Administrative Site</MenuItem>
+                <MenuItem value="Customs Container Station">Customs Container Station</MenuItem>
+                <MenuItem value="Data Processing Site">Data Processing Site</MenuItem>
+                <MenuItem value="Foreign Trade Zone">Foreign Trade Zone</MenuItem>
+                <MenuItem value="Importer Premises">Importer Premises</MenuItem>
+                <MenuItem value="Inspection Facility">Inspection Facility</MenuItem>
+                <MenuItem value="Multi-Use-Bonded">Multi-Use-Bonded</MenuItem>
+                <MenuItem value="Pier">Pier</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="Street Address"
+              value={searchTerms.address}
+              onChange={(e) => handleInputChange('address', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="City"
+              value={searchTerms.city}
+              onChange={(e) => handleInputChange('city', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="State"
+              placeholder="CA"
+              value={searchTerms.state}
+              onChange={(e) => handleInputChange('state', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="Zip"
+              value={searchTerms.zip}
+              onChange={(e) => handleInputChange('zip', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="Country"
+              value={searchTerms.country}
+              onChange={(e) => handleInputChange('country', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+          <Grid sx={{ gridColumn: 'span 4' }}>
+            <TextField
+              fullWidth
+              label="Status"
+              value={searchTerms.status}
+              onChange={(e) => handleInputChange('status', e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </Grid>
+        </Grid>
       )}
-    </div>
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleSearch}
+        >
+          Search
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          fullWidth
+          onClick={handleClear}
+        >
+          Clear
+        </Button>
+      </Box>
+    </Paper>
   );
 } 

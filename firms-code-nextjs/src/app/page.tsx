@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { parse } from 'papaparse';
 import Image from 'next/image';
+import { Box, Container, AppBar, Toolbar, Typography, CircularProgress, Alert, useTheme } from '@mui/material';
 import SearchOptions from '@/components/SearchOptions';
 import ResultsTable from '@/components/ResultsTable';
 import Disclaimer from '@/components/Disclaimer';
@@ -20,6 +21,7 @@ interface FirmCode {
 }
 
 export default function Home() {
+  const theme = useTheme();
   const [codes, setCodes] = useState<FirmCode[]>([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [currentMatches, setCurrentMatches] = useState<FirmCode[]>([]);
@@ -85,38 +87,63 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen">
-      <nav className="bg-[#AC162C] w-full py-4">
-        <div className="container mx-auto px-0 relative">
-          <div className="flex items-center justify-center">
-            <div className="absolute -left-20 w-[300px] h-[25px]">
-              <Image
-                src="/Linstol Logo Wordmark White.png"
-                alt="Linstol Logo"
-                fill
-                style={{ objectFit: 'contain' }}
-                priority
-              />
-            </div>
-            <h1 className="text-white text-2xl font-bold">Public FIRMS Code Search</h1>
-          </div>
-        </div>
-      </nav>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Container maxWidth="lg" sx={{ position: 'relative' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 2 }}>
+              <Box sx={{ 
+                position: 'absolute', 
+                left: { xs: 0, sm: -80 },
+                width: { xs: 200, sm: 300 },
+                height: 25 
+              }}>
+                <Image
+                  src="/Linstol Logo Wordmark White.png"
+                  alt="Linstol Logo"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  priority
+                />
+              </Box>
+              <Typography 
+                variant="h5" 
+                component="h1" 
+                sx={{ 
+                  color: 'white', 
+                  fontWeight: 'bold',
+                  fontSize: { xs: '1.2rem', sm: '1.5rem' }
+                }}
+              >
+                Public FIRMS Code Search
+              </Typography>
+            </Box>
+          </Container>
+        </Toolbar>
+      </AppBar>
 
-      <div className="container mx-auto px-4 py-8">
+      <Container maxWidth="lg" sx={{ py: 4 }}>
         <SearchOptions 
           codes={codes}
           isDataLoaded={isDataLoaded}
           onSearch={handleSearch}
         />
 
-        {loading && <div className="text-blue-500 mt-3">Loading data...</div>}
-        {error && <div className="text-red-500 mt-3">{error}</div>}
+        {loading && (
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress />
+          </Box>
+        )}
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
 
         <ResultsTable matches={currentMatches} />
 
         <Disclaimer />
-      </div>
-    </main>
+      </Container>
+    </Box>
   );
 }

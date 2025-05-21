@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;
@@ -11,52 +7,17 @@ body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
   font-family: 'Gilroy', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-@layer components {
-  .btn {
-    @apply px-4 py-2 rounded font-medium transition-colors;
-  }
-
-  .btn-primary {
-    @apply bg-[#AC162C] text-white hover:bg-[#8a1123];
-  }
-
-  .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
-  }
-
-  .btn-success {
-    @apply bg-green-600 text-white hover:bg-green-700;
-  }
-
-  .form-input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#AC162C] focus:border-transparent;
-  }
-
-  .form-select {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#AC162C] focus:border-transparent;
-  }
-
-  .form-checkbox {
-    @apply h-4 w-4 text-[#AC162C] focus:ring-[#AC162C] border-gray-300 rounded;
-  }
+* {
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
-  .container {
-    @apply px-2;
-  }
-
-  .table {
-    @apply text-sm;
-  }
-
-  .table th, .table td {
-    @apply px-2 py-1;
-  }
-
-  .btn {
-    @apply w-full mb-2;
+  .MuiContainer-root {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
