@@ -132,7 +132,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
 
   return (
     <Paper sx={{ p: { xs: 2, sm: 2.5 }, mt: 4, bgcolor: 'background.paper', width: '100%' }}>
-      <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', alignItems: 'center' }}>
+      <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', alignItems: 'center', gap: 2 }}>
         <Grid sx={{ gridColumn: 'span 8' }}>
           <FormControl fullWidth>
             <InputLabel>Search Mode</InputLabel>
@@ -160,7 +160,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
       </Grid>
 
       {searchMode === 'general' ? (
-        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }}>
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 2 }}>
           <Grid sx={{ gridColumn: 'span 12' }}>
             <TextField
               fullWidth
@@ -172,7 +172,7 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
           </Grid>
         </Grid>
       ) : (
-        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)' }}>
+        <Grid columns={12} rowSpacing={2} columnSpacing={2} sx={{ mb: 2, display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 2 }}>
           <Grid sx={{ gridColumn: 'span 4' }}>
             <TextField
               fullWidth
