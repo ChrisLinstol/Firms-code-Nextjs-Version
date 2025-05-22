@@ -263,13 +263,20 @@ export default function SearchOptions({ codes, isDataLoaded, onSearch }: SearchO
             />
           </Grid>
           <Grid sx={{ gridColumn: 'span 4' }}>
-            <TextField
-              fullWidth
-              label="Status"
-              value={searchTerms.status}
-              onChange={(e) => handleInputChange('status', e.target.value)}
-              onKeyPress={handleKeyPress}
-            />
+            <FormControl fullWidth>
+              <InputLabel>FIRMS Status</InputLabel>
+              <Select
+                value={searchTerms.status}
+                label="FIRMS Status"
+                onChange={(e) => handleInputChange('status', e.target.value)}
+              >
+                <MenuItem value="">Select Status</MenuItem>
+                <MenuItem value="Active">Active</MenuItem>
+                <MenuItem value="Activated">Activated</MenuItem>
+                <MenuItem value="Deactivated">Deactivated</MenuItem>
+               
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
       )}
