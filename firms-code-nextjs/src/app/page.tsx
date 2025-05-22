@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import { parse } from 'papaparse';
 import Image from 'next/image';
-import { Box, Container, AppBar, Toolbar, Typography, CircularProgress, Alert, useTheme } from '@mui/material';
+import Link from 'next/link';
+import { Box, Container, AppBar, Toolbar, Typography, CircularProgress, Alert, useTheme, Button } from '@mui/material';
 import SearchOptions from '@/components/SearchOptions';
 import ResultsTable from '@/components/ResultsTable';
 import Disclaimer from '@/components/Disclaimer';
@@ -117,6 +118,20 @@ export default function Home() {
               >
                 Public FIRMS Code Search
               </Typography>
+              <Button
+                component={Link}
+                href="/docs"
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  },
+                }}
+              >
+                Documentation
+              </Button>
             </Box>
           </Container>
         </Toolbar>
