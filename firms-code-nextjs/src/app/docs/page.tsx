@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   Container,
   Typography,
@@ -11,11 +12,22 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Button,
 } from '@mui/material';
 
 export default function DocumentationPage() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+        <Button
+          component={Link}
+          href="/"
+          variant="contained"
+          color="primary"
+        >
+          Return to FIRMS Search
+        </Button>
+      </Box>
       <Typography variant="h3" gutterBottom>
         Simple Guide: Public FIRMS Code Search
       </Typography>
@@ -49,26 +61,26 @@ export default function DocumentationPage() {
 
         <Typography variant="subtitle1"><strong>1. Quick Search (Search All Fields)</strong></Typography>
         <List dense>
-          <ListItem><ListItemText primary='Make sure "General Search (All Fields)" is selected at the top.' /></ListItem>
-          <ListItem><ListItemText primary='Type what you’re looking for (e.g., "New York" or "LAX").' /></ListItem>
-          <ListItem><ListItemText primary='(Optional) Tick the "Case Sensitive" box if you want to match upper/lowercase exactly.' /></ListItem>
-          <ListItem><ListItemText primary='Click Search.' /></ListItem>
-          <ListItem><ListItemText primary='Your results will appear below.' /></ListItem>
+          <ListItem><ListItemText primary={"Make sure 'General Search (All Fields)' is selected at the top."} /></ListItem>
+          <ListItem><ListItemText primary={"Type what you're looking for (e.g., 'New York' or 'LAX')."} /></ListItem>
+          <ListItem><ListItemText primary={"(Optional) Tick the 'Case Sensitive' box if you want to match upper/lowercase exactly."} /></ListItem>
+          <ListItem><ListItemText primary={"Click Search."} /></ListItem>
+          <ListItem><ListItemText primary={"Your results will appear below."} /></ListItem>
         </List>
         <Typography variant="body2">
-          Example: Typing <strong>LAX</strong> will find anything that includes “LAX” — like a city, name, or facility type (even "Relax" would show up).
+          Example: Typing <strong>LAX</strong> will find anything that includes "LAX" — like a city, name, or facility type (even "Relax" would show up).
         </Typography>
 
         <Box mt={3}>
           <Typography variant="subtitle1"><strong>2. Detailed Search (By Specific Fields)</strong></Typography>
           <List dense>
-            <ListItem><ListItemText primary='Choose "Search By Specific Fields" from the dropdown.' /></ListItem>
-            <ListItem><ListItemText primary='Fill in one or more boxes (e.g., type "CA" in the State field).' /></ListItem>
-            <ListItem><ListItemText primary='Click Search.' /></ListItem>
-            <ListItem><ListItemText primary='Results will appear below.' /></ListItem>
+            <ListItem><ListItemText primary={"Choose 'Search By Specific Fields' from the dropdown."} /></ListItem>
+            <ListItem><ListItemText primary={"Fill in one or more boxes (e.g., type 'CA' in the State field)."} /></ListItem>
+            <ListItem><ListItemText primary={"Click Search."} /></ListItem>
+            <ListItem><ListItemText primary={"Results will appear below."} /></ListItem>
           </List>
           <Typography variant="body2">
-            You don’t need to fill every field — just the ones that help you find what you’re looking for.
+            You don't need to fill every field — just the ones that help you find what you're looking for.
           </Typography>
         </Box>
       </Paper>
@@ -143,11 +155,11 @@ export default function DocumentationPage() {
         <Table size="small">
           <TableBody>
             <TableRow>
-              <TableCell><strong>“Loading data…” doesn’t go away</strong></TableCell>
+              <TableCell><strong>"Loading data..." doesn't go away</strong></TableCell>
               <TableCell>Refresh the page. Check that your internet is working.</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell><strong>“No matches found”</strong></TableCell>
+              <TableCell><strong>"No matches found"</strong></TableCell>
               <TableCell>Try using fewer words or check your spelling.</TableCell>
             </TableRow>
           </TableBody>
@@ -155,7 +167,7 @@ export default function DocumentationPage() {
       </Paper>
 
       <Typography variant="body2" sx={{ fontStyle: 'italic' }}>
-        Reminder: This tool is for reference only. It’s not connected to any official government agency.
+        Reminder: This tool is for reference only. It's not connected to any official government agency.
         Always double-check information before using it for business or legal decisions.
       </Typography>
     </Container>
